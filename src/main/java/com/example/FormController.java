@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,9 +33,16 @@ public class FormController {
             Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType,ErrorCorrectionLevel>();
             hashMap.put(EncodeHintType.ERROR_CORRECTION,ErrorCorrectionLevel.L);
             generateQRcode(str,path+str+".png",chartset,hashMap,200,200);
-            img = new Image(str+".png");
-            jLabal2.setText("");
-            imageView.setImage(img);
+
+            try {
+                File file = new File(str + ".png");
+                String localUrl = file.toURI().toURL().toString();
+                img = new Image(localUrl);
+                imageView.setImage(img);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
         }catch (Exception e){
             e.printStackTrace();
         }
