@@ -10,6 +10,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class FormController {
     public TextField jTextFild1;
     public Label jLabal2;
     public ImageView imageView;
-    ImageIcon img;
+    Image img;
     public void btnOnAction(ActionEvent actionEvent) {
         try{
             String str = jTextFild1.getText().trim();
@@ -30,9 +31,10 @@ public class FormController {
             String chartset = "UTF-8";
             Map<EncodeHintType, ErrorCorrectionLevel> hashMap = new HashMap<EncodeHintType,ErrorCorrectionLevel>();
             hashMap.put(EncodeHintType.ERROR_CORRECTION,ErrorCorrectionLevel.L);
-            generateQRcode(str,path+str+".png",chartset,hashMap,50,50);
-            img = new ImageIcon(str+".png");
+            generateQRcode(str,path+str+".png",chartset,hashMap,200,200);
+            img = new Image(str+".png");
             jLabal2.setText("");
+            imageView.setImage(img);
         }catch (Exception e){
             e.printStackTrace();
         }
